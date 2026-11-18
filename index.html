@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050505">
+<title>TikTok VIP Real Engine | الأمن المعبقي</title>
+
+<style>
+:root {
+ --bg-color: #050505;
+ --panel-bg: #111216;
+ --border-color: #222633;
+ --neon-green: #00ffcc;
+ --neon-gold: #ffcc00;
+ --neon-red: #ff3344;
+ --text-main: #f0f2f5;
+ --text-muted: #8b949e;
+}
+
+*{box-sizing:border-box}
+body{
+ margin:0;
+ padding:20px 12px 40px;
+ background:var(--bg-color);
+ color:var(--text-main);
+ font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container{max-width:780px;margin:auto}
+
+.header{
+ text-align:center;
+ margin:35px 0 25px;
+ font-size:clamp(26px, 5vw, 36px);
+ color:var(--neon-green);
+ font-weight:800;
+ text-shadow:0 0 20px rgba(0, 255, 204, 0.4);
+ letter-spacing: 1px;
+}
+
+.header small{
+ display:block;
+ margin-top:8px;
+ font-size:15px;
+ color:var(--text-muted);
+ font-weight: 500;
+}
+
+.info, .panel, .stats, .status{
+ background: var(--panel-bg);
+ border: 1px solid var(--border-color);
+ border-radius: 20px;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+ backdrop-filter: blur(10px);
+}
+
+.info{
+ padding: 20px;
+ text-align: center;
+ line-height: 2.2;
+ border-color: rgba(255, 204, 0, 0.3);
+ color: var(--neon-gold);
+ margin-bottom: 25px;
+ font-size: 15px;
+}
+.info span{color: var(--neon-green); font-weight: bold;}
+
+.panel{padding: 25px; margin-bottom: 25px;}
+
+.heading{
+ color: var(--neon-green);
+ font-size: 20px;
+ font-weight: 700;
+ margin-bottom: 20px;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ border-bottom: 1px solid var(--border-color);
+ padding-bottom: 12px;
+}
+
+label{
+ display: block;
+ margin: 20px 0 10px;
+ color: var(--neon-green);
+ font-size: 16px;
+ font-weight: 600;
+}
+
+input, textarea, select{
+ width: 100%;
+ padding: 16px;
+ background: #181a20;
+ color: #fff;
+ border: 2px solid #2a2e3d;
+ border-radius: 12px;
+ outline: none;
+ font-size: 16px;
+ font-family: inherit;
+ transition: all 0.3s ease;
+}
+
+textarea{
+ min-height: 110px;
+ resize: vertical;
+}
+
+input:focus, textarea:focus, select:focus{
+ border-color: var(--neon-green);
+ box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+ background: #1c1f28;
+}
+
+input::placeholder, textarea::placeholder{
+ color: #555c6d;
+}
+
+button{
+ width: 100%;
+ border: 0;
+ border-radius: 12px;
+ padding: 18px;
+ margin-top: 18px;
+ font-size: 18px;
+ font-weight: 700;
+ font-family: inherit;
+ cursor: pointer;
+ transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+button:active {
+ transform: scale(0.98);
+}
+
+.start{
+ background: linear-gradient(135deg, #00b074, #00ad62);
+ color: white;
+ box-shadow: 0 5px 20px rgba(0, 173, 98, 0.4);
+}
+.start:hover { filter: brightness(1.1); }
+
+.stop{
+ background: linear-gradient(135deg, #d92027, #b51a21);
+ color: white;
+ box-shadow: 0 5px 20px rgba(217, 32, 39, 0.4);
+}
+.stop:hover { filter: brightness(1.1); }
+
+.copy{
+ background: linear-gradient(135deg, #176a9e, #105278);
+ color: white;
+}
+
+.stats{
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 12px;
+ padding: 20px 10px;
+ text-align: center;
+ margin-bottom: 25px;
+}
+
+.stat{
+ color: var(--text-muted);
+ font-size: 13px;
+ font-weight: 600;
+}
+
+.stat strong{
+ display: block;
+ margin-top: 8px;
+ font-size: 26px;
+ color: var(--neon-gold);
+ text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+}
+
+.status{
+ padding: 18px;
+ text-align: center;
+ color: var(--neon-green);
+ font-weight: 600;
+ font-size: 15px;
+ letter-spacing: 0.5px;
+}
+
+.result{
+ display: none;
+ padding: 20px;
+ margin-top: 20px;
+ background: #0b1412;
+ border: 1px solid var(--neon-green);
+ border-radius: 14px;
+ box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.05);
+}
+
+.result pre{
+ white-space: pre-wrap;
+ overflow-wrap: anywhere;
+ line-height: 1.8;
+ color: #a3ffef;
+ font-family: monospace;
+ font-size: 14px;
+}
+
+.note{
+ color: var(--text-muted);
+ font-size: 12px;
+ line-height: 1.8;
+ margin-top: 8px;
+}
+
+.footer{
+ text-align: center;
+ color: var(--text-muted);
+ margin-top: 30px;
+ font-size: 13px;
+ line-height: 2.2;
+ border-top: 1px solid var(--border-color);
+ padding-top: 20px;
+}
+
+@media(max-width:480px){
+ .panel{padding: 16px}
+ label{font-size: 15px}
+ button{font-size: 17px; padding: 16px}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="header">
+🔥💀 TikTok VIP Real Engine
+<small>منظومة الأمن المعبقي السيبرانية المتطورة</small>
+</div>
+
+<div class="info">
+👑 المطور: <span>الأمن المعبقي</span><br>
+🤝 النظام: <span>VIP INTERFACE v3.0</span><br>
+🔐 الحالة: <span>جاهز للتشغيل التجريبي</span>
+</div>
+
+<div class="panel">
+
+<div class="heading">🎯 لوحة التحكم والعمليات</div>
+
+<label>📹 روابط الفيديوهات (رابط بكل سطر):</label>
+<textarea id="videos" placeholder="https://www.tiktok.com/@username/video/..."></textarea>
+
+<label>🔑 المعرّفات أو الجلسات التجريبية:</label>
+<textarea id="sessions" placeholder="SESSION_KEY_001&#10;SESSION_KEY_002"></textarea>
+<div class="note">واجهة محاكاة تفاعلية مطورة للتجارب المحلية ودراسة الواجهات.</div>
+
+<label>🌐 عناوين البروكسي (اختياري):</label>
+<textarea id="proxies" placeholder="127.0.0.1:8080"></textarea>
+
+<label>🔢 عدد العمليات المستهدفة:</label>
+<input id="amount" type="number" min="1" max="100" value="10">
+
+<label>📁 فئة المعالجة أو البلاغ:</label>
+<select id="category">
+<option>محتوى تجريبي واختباري</option>
+<option>تنمر أو تحرش رقمي</option>
+<option>انتحال شخصية واضحة</option>
+<option>انتهاك سياسات الخصوصية</option>
+<option>نشاط احتيالي أو مضلل</option>
+<option>تهديدات أو إساءة</option>
+</select>
+
+<button class="start" onclick="runDemo()">
+🚀 بدء محاكاة النظام السيبراني
+</button>
+
+<button class="stop" onclick="stopDemo()">
+⛔ إيقاف العمليات الطارئة
+</button>
+
+<div class="result" id="result">
+<h3 style="color:var(--neon-green); margin-top:0">📋 تقرير العمليات النشطة</h3>
+<pre id="output"></pre>
+<button class="copy" onclick="copyResult()">
+📋 نسخ التقرير الكامل
+</button>
+</div>
+
+</div>
+
+<div class="stats">
+<div class="stat">⚡ ناجح <strong id="success">0</strong></div>
+<div class="stat">🟣 قيد المعالجة <strong id="failed">0</strong></div>
+<div class="stat">🔥 الإجمالي <strong id="total">0</strong></div>
+</div>
+
+<div class="status" id="status">
+🟢 النظام في وضع الاستعداد وجاهز للبدء
+</div>
+
+<div class="footer">
+الامــــن المعبقـــــــي<br>
+VIP CYBER SECURITY SUITE<br>
+جميع الحقوق محفوظة © 2026
+</div>
+
+</div>
+
+<script>
+let running=false;
+let timer=null;
+let success=0;
+let failed=0;
+let total=0;
+
+const $=id=>document.getElementById(id);
+
+function resetCounters(){
+ success=0;
+ failed=0;
+ total=0;
+ $("success").textContent=0;
+ $("failed").textContent=0;
+ $("total").textContent=0;
+}
+
+function runDemo(){
+ if(running)return;
+
+ const videos=$("videos").value.trim().split(/\n+/).filter(Boolean);
+ const sessions=$("sessions").value.trim().split(/\n+/).filter(Boolean);
+ const amount=Number($("amount").value);
+
+ if(!videos.length){
+  alert("يرجى إدخال رابط فيديو واحد على الأقل للمتابعة");
+  return;
+ }
+
+ if(!Number.isInteger(amount)||amount<1||amount>100){
+  alert("يرجى اختيار عدد عمليات بين 1 و 100");
+  return;
+ }
+
+ resetCounters();
+ running=true;
+
+ $("result").style.display="block";
+ $("status").textContent="⚡ جاري تنفيذ العمليات السيبرانية...";
+
+ let step=0;
+
+ $("output").textContent=
+ "====================================\n"+
+ " [!] TIKTOK VIP SECURE ENGINE v3.0\n"+
+ " المطور: الأمن المعبقي\n"+
+ "====================================\n"+
+ " الفيديوهات المستهدفة: "+videos.length+"\n"+
+ " الجلسات المدخلة: "+sessions.length+"\n"+
+ " العمليات المحددة: "+amount+"\n"+
+ "------------------------------------\n";
+
+ timer=setInterval(()=>{
+  if(!running)return;
+
+  step++;
+  total++;
+  success++;
+
+  $("success").textContent=success;
+  $("total").textContent=total;
+
+  $("output").textContent+=
+  "\n[OK] العملية رقم "+step+" — تمت معالجة الرابط بنجاح";
+
+  if(step>=amount){
+   stopDemo();
+   $("status").textContent="🟢 اكتملت جميع العمليات السيبرانية بنجاح";
+  }
+ }, 300);
+}
+
+function stopDemo(){
+ running=false;
+ if(timer){
+  clearInterval(timer);
+  timer=null;
+ }
+ $("status").textContent="⛔ تم إيقاف العمليات يدويياً";
+}
+
+async function copyResult(){
+ try{
+  await navigator.clipboard.writeText($("output").textContent);
+  alert("تم نسخ التقرير بنجاح");
+ }catch(e){
+  alert("تعذر نسخ التقرير");
+ }
+}
+</script>
+</body>
+</html>
